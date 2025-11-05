@@ -18,7 +18,8 @@ namespace Academy
 			{
 				foreach (Human person in group)
 				{
-					writer.WriteLine(person.ToString());
+					//writer.WriteLine(person);
+					writer.WriteLine(person.ToStringCSV());
 					writer.WriteLine(delimiter);
 				}
 			}

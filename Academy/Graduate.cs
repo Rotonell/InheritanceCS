@@ -40,5 +40,10 @@ namespace Academy
 			return base.ToString() + Subject;
 		}
 
+		public override string ToStringCSV()
+		{
+			return base.ToStringCSV() + $",{Subject}";
+		}
+
 	}
 }
