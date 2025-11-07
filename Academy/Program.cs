@@ -1,43 +1,44 @@
 ﻿//#define INHERITANCE_1
 //#define INHERITANCE_2
+//#define WRITE_TO_FILE
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Academy
 {
 	class Program
 	{
+		//static void SaveToFaile(Human[] group, string fileName)
+		//{
+		//	using (StreamWriter writer = new StreamWriter(fileName))
+		//	{
+		//		foreach (Human person in group)
+		//		{
+		//			//writer.WriteLine(person);
+		//			writer.WriteLine(person.ToStringCSV());
+		//			writer.WriteLine(delimiter);
+		//		}
+		//	}
+
+		//	System.Diagnostics.Process.Start(fileName);
+		//}
+
+		//static void LoadFromFile(string fileName)
+		//{
+		//	using (StreamReader reader = new StreamReader(fileName))
+		//	{
+		//		string line;
+		//		while ((line = reader.ReadLine()) != null)
+		//		{
+		//			Console.WriteLine(line);
+		//		}
+		//	}
+		//}
 		static readonly string delimiter = "\n-----------------------------------\n";
-		static void SaveToFaile(Human[] group, string fileName)
-		{
-			using (StreamWriter writer = new StreamWriter(fileName))
-			{
-				foreach (Human person in group)
-				{
-					//writer.WriteLine(person);
-					writer.WriteLine(person.ToStringCSV());
-					writer.WriteLine(delimiter);
-				}
-			}
-
-			System.Diagnostics.Process.Start(fileName);
-		}
-
-		static void LoadFromFile(string fileName)
-		{
-			using (StreamReader reader = new StreamReader(fileName))
-			{
-				string line;
-				while ((line = reader.ReadLine()) != null)
-				{
-					Console.WriteLine(line);
-				}
-			}
-		}
 		static void Main(string[] args)
 		{
 #if INHERITANCE_1
@@ -73,6 +74,7 @@ namespace Academy
 			graduate.Info();
 #endif
 
+#if WRITE_TO_FILE
 			//Base-class pointers:
 			//Generalisation (Upcast - приведение дочернего объекта к базовому типу)
 			Human[] group =
@@ -86,17 +88,81 @@ namespace Academy
 			};
 
 			Console.WriteLine(delimiter);
-			////Specialisation:
-			//for (int i = 0; i < group.Length; i++)
-			//{
-			//	//group[i].Info();
-			//	Console.WriteLine(group[i].ToString());
-			//	Console.WriteLine(delimiter);
-			//}
+			//Specialisation:
+			for (int i = 0; i < group.Length; i++)
+			{
+				//group[i].Info();
+				Console.WriteLine(group[i].ToString());
+				Console.WriteLine(delimiter);
+			}
+			Save(group, "group.txt"); 
+#endif
 
-			SaveToFaile(group, "group.txt");
-			LoadFromFile("group.txt");
+			Human[] group = Load("group.txt");
+			Print(group);
 
+			//SaveToFaile(group, "group.txt");
+			//LoadFromFile("group.txt");
+
+		}
+		static void Print(Human[] group)
+		{
+			for (int i = 0; i < group.Length; i++)
+			{
+				Console.WriteLine(group[i]);
+				Console.WriteLine(delimiter);
+			}
+			Console.WriteLine();
+		}
+		static void Save(Human[] group, string filename)
+		{
+			StreamWriter writer = new StreamWriter(filename);
+
+			for (int i = 0; i < group.Length; i++)
+			{
+				writer.WriteLine(group[i].ToStringCSV());
+			}
+
+			writer.Close();
+			System.Diagnostics.Process.Start("notepad", filename);
+		}
+
+		static Human[] Load(string filename)
+		{
+			List<Human> group = new List<Human>();
+			StreamReader reader = new StreamReader(filename);
+			try
+			{
+				while (!reader.EndOfStream)
+				{
+					string buffer = reader.ReadLine();
+					string[] values = buffer.Split(',');
+					//Human human = HumanFactory(values.First());
+					//human.Init(values);
+					//group.Add(human);
+					group.Add(HumanFactory(values[0]).Init(values));
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			reader.Close();
+			return group.ToArray();
+		}
+		static Human HumanFactory(string type)
+		{
+			Human human = null;
+			switch (type)
+			{
+				case "Human": human = new Human("", "", 0); break;
+				case "Student": human = new Student("", "", 0, "", "", 0, 0); break;
+				case "Graduate": human = new Graduate("", "", 0, "", "", 0, 0, ""); break;
+				case "Teacher": human = new Teacher("", "", 0, "", 0); break;
+			}
+			return human;
+
+			
 		}
 	}
 }
