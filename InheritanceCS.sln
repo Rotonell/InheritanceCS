@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Academy", "Academy\Academy.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractGeometry", "AbstractGeometry\AbstractGeometry.csproj", "{798DD128-A97D-48BA-A8AA-AB9C2AC4D720}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbstractGeometry2", "AbstractGeometry2\AbstractGeometry2.csproj", "{CF45D3A2-2BE9-427C-B17C-7011A832F3B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{798DD128-A97D-48BA-A8AA-AB9C2AC4D720}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{798DD128-A97D-48BA-A8AA-AB9C2AC4D720}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{798DD128-A97D-48BA-A8AA-AB9C2AC4D720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF45D3A2-2BE9-427C-B17C-7011A832F3B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF45D3A2-2BE9-427C-B17C-7011A832F3B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF45D3A2-2BE9-427C-B17C-7011A832F3B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF45D3A2-2BE9-427C-B17C-7011A832F3B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
