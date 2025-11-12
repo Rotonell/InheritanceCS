@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace AbstractGeometry2
 {
-	internal class IsoscelesTriangle : Triangle
+	internal class IsoscelesTriangle : Triangle, IHaveHeight
 	{
 		double @base;
 		double side;
@@ -51,11 +51,23 @@ namespace AbstractGeometry2
 			};
 			e.Graphics.DrawPolygon(pen, vertices);
 		}
+
+		public void DrawHeigth(System.Windows.Forms.PaintEventArgs e)
+		{
+			Pen pen = new Pen(Color.White, 2);
+
+			e.Graphics.DrawLine(pen,
+				StartX + (float)(@base/2),
+				StartY ,
+				StartX + (float)(@base/2),
+				StartY + (float)GetHeigth());
+		}
 		public override void Info(PaintEventArgs e)
 		{
 			Console.WriteLine($"Основание: {Base}");
 			Console.WriteLine($"Сторона: {Side}");
 			base.Info(e);
+			DrawHeigth(e);
 		}
 	}
 }

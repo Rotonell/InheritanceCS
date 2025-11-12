@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace AbstractGeometry2
 {
-	internal class Rectangle : Shape
+	internal class Rectangle : Shape, IHaveDiagonal
 	{
 		double width;
 		double height;
@@ -34,21 +34,32 @@ namespace AbstractGeometry2
 		}
 		public override double GetArea() => Width * Height;
 		public override double GetPerimeter() => 2 * (Height + Width);
+		public double GetDiagonal()
+		{
+			return Math.Sqrt(Math.Pow(Width, 2) + Math.Pow(Height, 2));
+		}
 		public override void Draw(System.Windows.Forms.PaintEventArgs e)
 		{
 			Pen pen = new Pen(Color, LineWidth);
 			SolidBrush brush = new SolidBrush(Color);
 			e.Graphics.DrawRectangle(pen, StartX, StartY, (float)Width, (float)Height);
 			e.Graphics.FillRectangle(brush, StartX,StartY,(float)Width, (float)Height);
+		}
 
+		public void DrawDiagonal(System.Windows.Forms.PaintEventArgs e)
+		{
+			Pen pen = new Pen(Color.Black, 2);
+			e.Graphics.DrawLine(pen, StartX, StartY, StartX + (int)Width, StartY + (int)Height);
 		}
 
 		public override void Info(System.Windows.Forms.PaintEventArgs e)
 		{
 			Console.WriteLine(this.GetType().ToString().Split('.').Last()+":");
 			Console.WriteLine($"Ширина:{Width}");
-			Console.WriteLine($"В ысота:{Height}");
+			Console.WriteLine($"Высота:{Height}");
+			Console.WriteLine($"Диагональ: {GetDiagonal()}");
 			base.Info(e);
+			DrawDiagonal(e);
 		}
 		
 	}
